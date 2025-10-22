@@ -14,3 +14,9 @@ bot/config.py
 
 # (念のためcloud_function側も)
 cloud_function/config.py
+
+# 収集したノートやIDを保存するデータフォルダ
+bot/data/
+
+# 実行ログを保存するフォルダ
+logs/
