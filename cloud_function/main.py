@@ -10,16 +10,14 @@ from vertexai.generative_models import GenerativeModel
 
 # --- AIモデルの初期化 ---
 try:
-    # ★★★ 修正点 1 ★★★
-    # リージョンは、Gemini 2.5 が確実にある「us-central1」を指定
+    # ★ リージョンは、Gemini 2.5 が確実にある「us-central1」を指定
     PROJECT_ID = "sushisuki-summarizer-v2"
     LOCATION = "us-central1"
     vertexai.init(project=PROJECT_ID, location=LOCATION)
 
-    # ★★★ 修正点 2 ★★★
-    # しなりさんのプロジェクトで利用可能な、最新の「2.5 Flash」を指定
+    # ★ しなりさんのGCPで利用可能な、最新の「2.5 Flash」を指定
     model = GenerativeModel(
-        model_name="gemini-2.5-flash-latest" 
+        model_name="gemini-2.5-flash"
     )
     
     print("AIモデル (Gemini SDK: gemini-2.5-flash-latest @ us-central1) の初期化に成功しました。")
