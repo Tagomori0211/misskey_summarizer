@@ -21,3 +21,9 @@ SUMMARY_DATA_FILE_PATH = f"{DATA_DIR}/summary_for_today.txt"
 # 1回にAIに送るおおよその文字数。
 # 安定性のためと、無駄な課金を防ぐために制限を設けます。
 CHUNK_SIZE = 50000
+
+# (DATA_DIR = "bot/data" などの設定の下に追記)
+LAST_ID_FILE_PATH = f"{DATA_DIR}/last_collected_id.txt"
+
+# (CHUNK_SIZE = 50000 などの設定の下に追記)
+EXCLUDE_USER_ID = "YOUR_BOT_USER_ID_HERE" 
