@@ -1,12 +1,16 @@
-# Pythonのキャッシュファイル
+# Pythonが自動生成するキャッシュファイル
 __pycache__/
 *.pyc
 
-# 仮想環境フォルダ (もしあれば)
+# 仮想環境フォルダ (もし 'venv' という名前で作るなら)
 venv/
 *.env
+.env
 
-# ★★★ 最重要 ★★★
-# 秘密情報ファイル
+# === ★★★ 超重要 ★★★ ===
+# 秘密情報が書かれた設定ファイル
+# これがあることで、git add . しても 'config.py' は無視されます
 bot/config.py
+
+# (念のためcloud_function側も)
 cloud_function/config.py

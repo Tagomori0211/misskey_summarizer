@@ -1,0 +1,23 @@
+
+# --- Misskeyサーバー設定 ---
+# (例: "https://misskey.io" や "https://mstdn.jp" など)
+MISSKEY_URL = "https://your-misskey-server.example.com"
+
+# --- Misskey APIトークン ---
+# Misskeyの「設定」->「API」->「アクセストークンの発行」で
+# 'notes_read' と 'notes_write' の権限を付けて発行してください。
+MISSKEY_TOKEN = "YOUR_MISSKEY_API_TOKEN_HERE"
+
+# --- GCP Cloud Function 設定 ---
+# GCPにデプロイしたAI要約サーバーの「トリガーURL」
+GCP_FUNCTION_URL = "YOUR_GCP_CLOUD_FUNCTION_URL_HERE"
+
+# --- ボットサーバー内のファイルパス設定 ---
+DATA_DIR = "bot/data"
+NOTE_DATA_FILE_PATH = f"{DATA_DIR}/daily_notes.txt"
+SUMMARY_DATA_FILE_PATH = f"{DATA_DIR}/summary_for_today.txt"
+
+# --- AI要約設定 ---
+# 1回にAIに送るおおよその文字数。
+# 安定性のためと、無駄な課金を防ぐために制限を設けます。
+CHUNK_SIZE = 50000
