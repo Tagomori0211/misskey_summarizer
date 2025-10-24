@@ -29,7 +29,26 @@
 * **その他:** cron (スケジューリング)
 
 ---
+## システム構成図 🏗️
 
+このBotは以下の3つの主要なコンポーネントが連携して動作します。
+
+1.  **Local Server (Python Bot Scripts):**
+    * ノートの収集 (`collect_notes.py`)
+    * 要約テキストの生成・管理 (`summarize.py`)
+    * Misskeyへの投稿 (`post_note.py`)
+    * 投稿のリノート (`renote.py`)
+    * データファイル (`daily_notes.txt`, `summary_for_today.txt` など) の読み書き
+
+2.  **GCP Cloud Function (Gemini AI Summarizer):**
+    * Local Server からテキストを受け取り、Gemini AI で要約処理を実行します。
+
+3.  **Misskey Instance (API):**
+    * ノートの読み込み（LTLの取得）
+    * 要約結果の投稿
+    * 投稿のリノート
+
+---
 
 (cronでの実行例) ⏰
 crontab -e 各スクリプトは、プロジェクトのルートディレクトリから実行することを想定しています。
