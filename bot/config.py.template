@@ -12,18 +12,19 @@ MISSKEY_TOKEN = "YOUR_MISSKEY_API_TOKEN_HERE"
 # GCPにデプロイしたAI要約サーバーの「トリガーURL」
 GCP_FUNCTION_URL = "YOUR_GCP_CLOUD_FUNCTION_URL_HERE"
 
-# --- ボットサーバー内のファイルパス設定 ---
-DATA_DIR = "bot/data"
-NOTE_DATA_FILE_PATH = f"{DATA_DIR}/daily_notes.txt"
-SUMMARY_DATA_FILE_PATH = f"{DATA_DIR}/summary_for_today.txt"
+# --- ボットサーバー内のファイルパス設定 (絶対パス) ---
+# スクリプトがどこから実行されても同じ場所を参照するように絶対パスを指定
+BASE_DIR = "/path/to/your/project/root" # ★ あなたのプロジェクトルートに変更
+DATA_DIR = f"{BASE_DIR}/bot/data"          # ★ data ディレクトリの絶対パス
+
+NOTE_DATA_FILE_PATH = f"{DATA_DIR}/daily_notes.txt"         # 収集したノート本文
+SUMMARY_DATA_FILE_PATH = f"{DATA_DIR}/summary_for_today.txt" # 生成された要約
+LAST_POST_ID_FILE_PATH = f"{DATA_DIR}/last_post_id.txt"     # 8時投稿のIDを20時リノート用に保存
 
 # --- AI要約設定 ---
-# 1回にAIに送るおおよその文字数。
-# 安定性のためと、無駄な課金を防ぐために制限を設けます。
+# 1回にAIに送るおおよその文字数。 (分割処理用)
 CHUNK_SIZE = 50000
 
-# (DATA_DIR = "bot/data" などの設定の下に追記)
-LAST_ID_FILE_PATH = f"{DATA_DIR}/last_collected_id.txt"
-
-# (CHUNK_SIZE = 50000 などの設定の下に追記)
-EXCLUDE_USER_ID = "YOUR_BOT_USER_ID_HERE" 
+# --- 収集設定 ---
+# 要約対象から除外するユーザーID (例: Bot自身のID)
+EXCLUDE_USER_ID = "YOUR_BOT_USER_ID_HERE"
