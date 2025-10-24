@@ -68,30 +68,15 @@ TL流速の速いサーバー(インスタンス)である場合、話題が埋�
 
 ---
 
-(cronでの実行例) ⏰
-crontab -e 各スクリプトは、プロジェクトのルートディレクトリから実行することを想定しています。
-
- --- パス設定 (★★★ あなたの環境に合わせて変更してください ★★★) ---
- ログファイルを出力するディレクトリ (絶対パス)
-LOG_DIR="/path/to/your/project/misskey_summarizer/logs"
- ボットのスクリプトがあるディレクトリ (絶対パス)
-BOT_DIR="/path/to/your/project/misskey_summarizer/bot"
- Python仮想環境のPython実行ファイルのパス (絶対パス)
-VENV_PYTHON="/path/to/your/project/misskey_summarizer/venv/bin/python3"
-
  --- 定期実行ジョブ ---
  1. 【収集】 15分ごと (0分, 15分, 30分, 45分) にノートを収集
-*/15 * * * * $VENV_PYTHON $BOT_DIR/collect_notes.py >> $LOG_DIR/collect.log 2>&1
-
+collect_notes.py
  2. 【要約】 毎日 朝4時00分 にAI要約を実行
-0 4 * * * $VENV_PYTHON $BOT_DIR/summarize.py >> $LOG_DIR/summarize.log 2>&1
-
+summarize.py
  3. 【投稿】 毎日 朝8時00分 にMisskeyへ要約を投稿
-0 8 * * * $VENV_PYTHON $BOT_DIR/post_note.py >> $LOG_DIR/post.log 2>&1
-
+post_note.py
  4. 【リノート】 毎日 夜20時00分 に朝の投稿を自己リノート
-0 20 * * * $VENV_PYTHON $BOT_DIR/renote.py >> $LOG_DIR/renote.log 2>&1
-注意: 上記のパス (LOG_DIR, BOT_DIR, VENV_PYTHON) は、ご自身の環境に合わせて必ず変更してください。
+renote.py
 
 
  主な実装の工夫点
@@ -99,3 +84,5 @@ VENV_PYTHON="/path/to/your/project/misskey_summarizer/venv/bin/python3"
 AI要約 (MapReduce): summarize.py では、収集した大量のノートテキストをそのままAIに送るとエラーになるため、一定の文字数 (CHUNK_SIZE) で分割して個別に「部分要約」させ (Map)、最後にそれらを結合して「最終要約」を生成させる (Reduce) 方式を採用し、長文処理を実現しています。
 
 Misskey API通信: collect_notes.py では、当初利用していた misskey.py ライブラリでノート取得漏れが発生したため、Python標準の requests ライブラリを用いてAPIエンドポイントを直接呼び出す方式に変更し、安定したデータ収集を実現しています。
+
+取得スクリプト実行時直前直後のノートでリアクション数の集計に有利不利が発生するため実行から30分前から15分前の15分の間のノートを追記することで公正さを担保しました。
